@@ -79,12 +79,156 @@ func sum4(a: Int, b: Int) -> Int {
 print(sum4(4, b: 9))
 
 
+//使用func 来声明一个函数，使用名字和参数来调用函数。使用->来指定函数返回值
+func greet(name: String, day: String) -> String {
+    
+    return "Hello\(name), today is \(day)"
+}
 
+greet("Bob", day: "Tuesday")
 
+func greetC(name: String, eat: String) ->String {
+    
+    return "Hello\(name), I have ate \(eat)"
+}
 
+greetC("Lu", eat: "noodles")
 
+//使用元祖来返回多个值
+func getGasPrices() -> (Double, Double, Double) {
+    
+    return (3.59, 3.69, 3.79)
+}
 
+print(getGasPrices())
 
+//函数的参数数量是可变的，用一个数组来获取它们
+
+func calculateStatistics(scores: [Int]) -> (min: Int, max: Int, sum: Int) {
+    
+    var min = scores[0]
+    var max = scores[0]
+    var sum = 0
+    
+    for score in scores {
+        if score > max {
+            
+            max = score
+        } else if score < min {
+            
+            min = score
+        }
+        sum += score
+    }
+    
+    return (min, max, sum)
+}
+
+let statistics = calculateStatistics([5, 3, 100, 3, 9])
+print(statistics.sum)
+print("max--\(statistics.1)")
+print("min--\(statistics.0)")
+
+func sumOf(numbers: Int...) -> Int {
+    
+    var sum = 0
+    for number in numbers {
+        
+        sum += number
+    }
+    return sum
+}
+sumOf()
+sumOf(42, 597, 12)
+
+//写一个计算参数平均值的函数
+
+func average(numbers: Int...) -> Int {
+    
+    var sum = 0
+    for number in numbers {
+        sum += number
+        
+    }
+    
+    let average = sum / numbers.count
+    return average
+}
+
+average(42, 597, 12)
+
+//函数可以嵌套。被嵌套的函数可以访问外侧函数的变量，你可以使用嵌套函数来重构一个太长或者太复杂的函数
+func returnFifteen() -> Int {
+    
+    var y = 10
+    func add() {
+        
+        y += 5
+    }
+    add()
+    
+    return y
+    
+}
+
+returnFifteen()
+
+//函数可以作为另一个函数的返回值
+func makeIncrementer() -> ((Int) -> Int) {
+    
+    func addOne(number: Int) -> Int {
+        
+        return 1 + number
+    }
+    return addOne
+}
+
+var increment = makeIncrementer()
+print("increment(7): \(increment(7))")
+
+//函数可以当做参数传入另一个函数
+func hasAnyMatches(list: [Int], condition: Int -> Bool) -> Bool {
+    
+    for item in list {
+        
+        if condition(item) {
+            
+            return true
+        }
+    }
+    
+    return false
+}
+
+func lessThanTen(number: Int) -> Bool {
+    
+    return number < 10
+}
+
+var numbers = [20, 19, 42, 12]
+hasAnyMatches(numbers, condition: lessThanTen)
+
+//函数实际上是一种特殊的闭包，你可以使用{}来创建一个匿名闭包。使用in来分割参数并返回类型。
+
+//numbers.map({
+//    
+//    (number: Int) -> Int in
+//    let result = 3 * number
+//    return result
+//})
+
+numbers.map({
+    
+    (number: Int) -> [Int] in
+    if number % 2 != 0 {
+        
+      let number = 0
+      print(number)
+    }
+    return numbers
+})
+
+print(numbers)
 
 
 
